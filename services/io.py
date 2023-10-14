@@ -1,16 +1,22 @@
 from constants import PROHIBITED_PASSWORD_CHARACTERS, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH
+from enum import Enum
 
 
-def is_want_to_register():
+class AuthOptions(Enum):
+    REGISTER = 1
+    LOG_IN = 2
+
+
+def get_auth_option():
     answer = input("Choose the option:\n1. Register\n2. Log in\n")
     if answer != "1" and answer != "2":
         print(f"Invalid option selected")
-        return is_want_to_register()
+        return get_auth_option()
     match answer:
         case "1":
-            return True
+            return AuthOptions.REGISTER
         case "2":
-            return False
+            return AuthOptions.LOG_IN
 
 
 def get_password():
