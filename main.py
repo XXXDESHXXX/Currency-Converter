@@ -1,6 +1,9 @@
+from database import create_tables
+
+
 def main():
-    pass
+    create_tables()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
