@@ -19,7 +19,8 @@ def create_tables():
             id serial NOT NULL,
             username character varying(48) NOT NULL,
             password character varying(256) NOT NULL,
-            PRIMARY KEY (id)
+            PRIMARY KEY (id),
+            CONSTRAINT unique_username UNIQUE (username)
         );
         
         CREATE TABLE IF NOT EXISTS convertation_history

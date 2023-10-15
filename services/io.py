@@ -1,7 +1,6 @@
 from enum import Enum
 
-from constants import MIN_USERNAME_LENGTH
-from services.validators import validate_password, validate_username
+from validators import validate_password, validate_username
 
 
 class AuthOptions(Enum):
