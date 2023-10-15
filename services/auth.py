@@ -1,8 +1,8 @@
-import psycopg2
 from database import cur, conn
+from selectors import get_user
 
 
-def register(username, password):
+def create_user(username: str, password: str) -> None:
     cur.execute(
         f"""
         INSERT INTO auth_user (username, password) 
@@ -12,12 +12,8 @@ def register(username, password):
     conn.commit()
 
 
-def log_in(username, password):
-    query = cur.execute(
-        f"""
-        SELECT * FROM auth_user 
-        WHERE username = '{username}'
-        """
-    )
-    user = cur.fetchone()
+def log_in(username: str, password: str) -> tuple[int, str, str] | None:
+    user = get_user(username)
+    if user is None or user[2] != password:
+        return None
     return user

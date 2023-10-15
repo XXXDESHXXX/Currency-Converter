@@ -8,7 +8,7 @@ class AuthOptions(Enum):
     LOG_IN = 2
 
 
-def get_auth_option():
+def get_auth_option() -> AuthOptions:
     answer = input("Choose the option:\n1. Register\n2. Log in\n")
     if answer != "1" and answer != "2":
         print(f"Invalid option selected")
@@ -20,7 +20,7 @@ def get_auth_option():
             return AuthOptions.LOG_IN
 
 
-def get_password():
+def get_password() -> str:
     password = input("Enter a password: ")
     try:
         validate_password(password)
@@ -30,7 +30,7 @@ def get_password():
     return password
 
 
-def get_username():
+def get_username() -> str:
     username = input("Enter a username: ")
     try:
         validate_username(username)

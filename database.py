@@ -11,7 +11,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 
-def create_tables():
+def create_tables() -> None:
     cur.execute(
         """
         CREATE TABLE IF NOT EXISTS auth_user
