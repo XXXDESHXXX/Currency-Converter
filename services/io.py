@@ -1,5 +1,7 @@
-from constants import PROHIBITED_PASSWORD_CHARACTERS, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH
 from enum import Enum
+
+from constants import MIN_USERNAME_LENGTH
+from services.validators import validate_password, validate_username
 
 
 class AuthOptions(Enum):
@@ -20,24 +22,20 @@ def get_auth_option():
 
 
 def get_password():
-    joined_prohibited_password_characters = ", ".join(PROHIBITED_PASSWORD_CHARACTERS)
     password = input("Enter a password: ")
-    if len(password) < MAX_PASSWORD_LENGTH:
-        print(f"Password length must be more than {MAX_PASSWORD_LENGTH} symbols or equal")
-        return get_password()
-    for character in PROHIBITED_PASSWORD_CHARACTERS:
-        if character in password:
-            print(
-                f"{character} is not allowed in password,"
-                f" there are such prohibited characters: {joined_prohibited_password_characters}"
-            )
-            return get_password()
+    try:
+        validate_password(password)
+    except ValueError as error:
+        print(error)
+        get_password()
     return password
 
 
 def get_username():
     username = input("Enter a username: ")
-    if len(username) < MAX_USERNAME_LENGTH:
-        print(f"Username length must be more than {MAX_USERNAME_LENGTH} symbols or equal")
-        return get_username()
+    try:
+        validate_username(username)
+    except ValueError as error:
+        print(error)
+        get_username()
     return username
