@@ -10,3 +10,14 @@ def register(username, password):
         """
     )
     conn.commit()
+
+
+def log_in(username, password):
+    query = cur.execute(
+        f"""
+        SELECT * FROM auth_user 
+        WHERE username = '{username}'
+        """
+    )
+    user = cur.fetchone()
+    return user
