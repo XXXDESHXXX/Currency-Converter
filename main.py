@@ -1,19 +1,19 @@
 from database import create_tables
 from services.auth import create_user, log_in
-from services.io import get_password, get_username, get_auth_option, AuthOptions
+from services.io import AuthIO, is_want_to_register, get_menu_option
 
 
 def main() -> None:
     create_tables()
-    auth_option = get_auth_option()
-    username = get_username()
-    password = get_password()
-    if auth_option == AuthOptions.REGISTER:
-        create_user(username, password)
-    user = log_in(username, password)
-    while user is None:
-        print("Invalid credentials")
-        user = log_in(get_username(), get_password())
+    auth_io = AuthIO()
+    if is_want_to_register():
+        print("Registration")
+        create_user(auth_io.get_username(), auth_io.get_password())
+    print("Log in")
+    user = log_in(auth_io)
+    menu_option = get_menu_option()
+    if menu_option == "3":
+        exit()
 
 
 if __name__ == "__main__":
