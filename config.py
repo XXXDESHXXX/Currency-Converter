@@ -10,3 +10,5 @@ class Config:
     DB_PORT = os.getenv("DB_PORT")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     DB_USER = os.getenv("DB_USER")
+    FREE_CURRENCY_API_KEY = os.getenv("FREE_CURRENCY_API_KEY")
+    FREE_CURRENCY_API_BASE_URL = os.getenv("FREE_CURRENCY_API_BASE_URL")
