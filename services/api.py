@@ -28,8 +28,3 @@ class FreeCurrencyAPI(AbstractCurrencyAPI):
     def get_currency(self, currency_code: str) -> float:
         data = self.get_currencies()
         return data[currency_code]
-
-
-if __name__ == "__main__":
-    free_currency_api = FreeCurrencyAPI()
-    print(free_currency_api.get_currencies())
