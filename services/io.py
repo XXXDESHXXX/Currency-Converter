@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 
-from validators import validate_password, validate_username
+from validators import validate_password, validate_username, validate_amount
 
 
 class AbstractAuthIO(ABC):
@@ -42,10 +42,38 @@ def is_want_to_register() -> bool:
     return answer == "1"
 
 
-def get_menu_option() -> str:
+class MenuOptions(Enum):
+    CONVERTER_MENU = 1
+    PRINT_CONVERSION_HISTORY = 2
+    EXIT = 3
+
+
+def get_menu_option() -> MenuOptions:
     option = input("Choose menu option:\n1. Go to the converter menu\n2. Print conversion history\n3. Exit\n")
     if option != "1" and option != "2" and option != "3":
         print("Invalid option selected")
         return get_menu_option()
-    return option
+    options_map = {
+        "1": MenuOptions.CONVERTER_MENU,
+        "2": MenuOptions.PRINT_CONVERSION_HISTORY,
+        "3": MenuOptions.EXIT,
+    }
+    return options_map[option]
 
+
+def get_from_currency() -> str:
+    return input("Enter the currency code you want to convert from: ")
+
+
+def get_to_currency() -> str:
+    return input("Enter the currency code you want to convert to: ")
+
+
+def get_amount() -> str:
+    amount = input("Enter the amount of currency you want to convert: ")
+    try:
+        validate_amount(amount)
+    except ValueError:
+        print("Please enter a valid amount.")
+        return get_amount()
+    return amount
