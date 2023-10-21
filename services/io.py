@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 
+from services.selectors.conversation_history import get_conversation_history
 from validators import validate_password, validate_username, validate_amount
 
 
@@ -77,3 +78,17 @@ def get_amount() -> str:
         print("Please enter a valid amount.")
         return get_amount()
     return amount
+
+
+def show_conversation_history(user_id: int) -> None:
+    user_conversations = get_conversation_history(user_id)
+    for i, conversation in enumerate(user_conversations, start=1):
+        print(
+            f"""
+            {i}. {conversation[1]} - {conversation[2]}
+            Amount is {conversation[3]}
+            Date of creation: {conversation[4]}.
+            """
+        )
+    else:
+        print("There is no previous conversations")
