@@ -1,9 +1,12 @@
+from datetime import datetime
+
 from database import create_tables
 from services.api import FreeCurrencyAPI
 from services.auth import create_user, log_in
+from services.conversation_history import save_conversation
 from services.converter import CurrencyConverter
 from services.io import AuthIO, is_want_to_register, get_menu_option, get_from_currency, get_to_currency, get_amount, \
-    MenuOptions
+    MenuOptions, show_conversation_history
 
 
 def main() -> None:
@@ -19,24 +22,26 @@ def main() -> None:
 
     while True:
         menu_option = get_menu_option()
-        if menu_option == MenuOptions.CONVERTER_MENU:
-            from_currency = get_from_currency()
-            to_currency = get_to_currency()
-            amount = get_amount()
-            try:
-                currency_converter = CurrencyConverter(
-                    FreeCurrencyAPI(),
-                    from_currency,
-                    to_currency,
-                    amount,
-                )
-                print(currency_converter.convert())
-            except KeyError:
-                print("Invalid currency code")
-        elif menu_option == MenuOptions.PRINT_CONVERSION_HISTORY:
-            pass
-        elif menu_option == MenuOptions.EXIT:
-            exit()
+        match menu_option:
+            case MenuOptions.CONVERTER_MENU:
+                from_currency = get_from_currency()
+                to_currency = get_to_currency()
+                amount = get_amount()
+                try:
+                    currency_converter = CurrencyConverter(
+                        FreeCurrencyAPI(),
+                        from_currency,
+                        to_currency,
+                        amount,
+                    )
+                    save_conversation(from_currency, to_currency, float(amount), datetime.now(), user[0])
+                    print(currency_converter.convert())
+                except KeyError:
+                    print("Invalid currency code")
+            case MenuOptions.PRINT_CONVERSION_HISTORY:
+                show_conversation_history(user[0])
+            case MenuOptions.EXIT:
+                exit()
 
 
 if __name__ == "__main__":
