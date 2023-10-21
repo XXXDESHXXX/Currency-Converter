@@ -34,12 +34,12 @@ def main() -> None:
                         to_currency,
                         amount,
                     )
-                    save_conversation(from_currency, to_currency, float(amount), datetime.now(), user[0])
+                    save_conversation(from_currency, to_currency, float(amount), user.id)
                     print(currency_converter.convert())
                 except KeyError:
                     print("Invalid currency code")
             case MenuOptions.PRINT_CONVERSION_HISTORY:
-                show_conversation_history(user[0])
+                show_conversation_history(user.id)
             case MenuOptions.EXIT:
                 exit()
 

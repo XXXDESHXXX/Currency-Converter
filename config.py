@@ -12,3 +12,10 @@ class Config:
     DB_USER = os.getenv("DB_USER")
     FREE_CURRENCY_API_KEY = os.getenv("FREE_CURRENCY_API_KEY")
     FREE_CURRENCY_API_BASE_URL = os.getenv("FREE_CURRENCY_API_BASE_URL")
+    DB_DSN = (
+        f"postgresql+psycopg2://"
+        f"{DB_USER}:"
+        f"{DB_PASSWORD}@"
+        f"{DB_HOST}/"
+        f"{DB_NAME}"
+    )
