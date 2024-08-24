@@ -1,4 +1,4 @@
-from services.api import AbstractCurrencyAPI, FreeCurrencyAPI
+from services.api import AbstractCurrencyAPI
 
 
 class CurrencyConverter:

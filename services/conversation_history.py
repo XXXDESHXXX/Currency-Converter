@@ -1,7 +1,5 @@
-from sqlalchemy import select
 from models import ConversationHistory
 from database import session_maker
-from datetime import datetime
 
 
 def save_conversation(from_currency: str, to_currency: str, amount: float, user_id: int) -> None:
